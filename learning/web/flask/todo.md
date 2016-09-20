@@ -1,6 +1,7 @@
 # Master To-Do
 ## 09/20/2016 
 Working on implementing the 'forms' section. 
+
 1. Added:
    * microblog/app/templates/login.html
    * microblog/app/forms.py
