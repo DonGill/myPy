@@ -11,7 +11,7 @@ def _write_csv(csv_dest):
         writer = csv.DictWriter(csvfile, dialect='excel', fieldnames=md_fieldnames)
         writer.writeheader()
         writer.writerows(md_list)
-
+        print(csv_dest)
     csvfile.close()
 
 def _get_title(md):

@@ -6,6 +6,7 @@
 # ================================================================================================ #
 # A personal collection of helper functions used in various programs
 
+# TODO: These functions should be generalized and then some error logic applied.
 
 def double_digit_date (date_to_pad):
     '''returns a padded string date format where the month and day are two digits'''
@@ -24,9 +25,3 @@ def _padNum (num, needs_itterator):
         return tmp_return + '0' + str(num)
     else:
         return tmp_return + str(num)
-
-# def main():
-#     print(double_digit_date(datetime.date.today()))
-#
-#
-# main()

@@ -6,17 +6,26 @@ import re
 
 # BASE_METADATA_CSV = r'C:\GIT_Archive\_WS16 Archive\2016.09.21\ws16_metadata_2016.09.21.csv'
 mylist = []
-md_fieldnames = ['filepath', 'ms.date','ms.prod', 'ms.technology', 'ms.author', 'author', 'manager', 'ms.topic', 'title', 'description', 't-technical-preview', 't-preliminary', 't-2012', 't-img-alt-text']
+md_fieldnames = ['filepath', 'ms.date','ms.prod', 'ms.technology', 'ms.author', 'author', 'manager', 'ms.topic', 'title', 'description', 't-technical-preview', 't-preliminary', 't-file-preview', 't-img-alt-text','t-file-dd']
 
 def count_inst(src_file, string_to_find):
+    
     # WA using encoding='Latin-1' to get around some files with ASCII encoding issues
     try:
-        #src = open(src_file, encoding='Latin-1').read()
         return src_file.count(string_to_find)
     except Exception as err_inst:
         print(err_inst)
         return 1000
         pass
+
+
+def filename_contains_text(filename, text_to_find):
+    # filename expects the full path and file
+    # Will return True if the filename contains text_to_find and False if it does not
+    if str(filename).lower().__contains__(text_to_find):
+        return True
+    else:
+        return False
 
 def missing_img_alt_text(src_file):
     regex = r'!\[\s*\]'
@@ -42,10 +51,11 @@ def build_testing_spreadsheet(metadata_csv_path, result_csv_path):
             md_file_text = test.read().lower()
             result1 = count_inst(md_file_text, 'technical preview')
             result2 = count_inst(md_file_text, 'preliminary')
-            result3 ='Boo'
+            result3 = filename_contains_text(row['filepath'], 'preview')
             result4 = missing_img_alt_text(md_file_text)
-            
-            row.update({'t-technical-preview': result1, 't-preliminary': result2, 't-2012': result3, 't-img-alt-text': result4})
+            result5 = filename_contains_text(row['filepath'], '--')
+
+            row.update({'t-technical-preview': result1, 't-preliminary': result2, 't-file-preview': result3, 't-img-alt-text': result4, 't-file-dd': result5})
         test.close()
 
     with open(result_csv_path, 'w', newline='\n') as csvfile:
@@ -54,4 +64,5 @@ def build_testing_spreadsheet(metadata_csv_path, result_csv_path):
         writer.writerows(mylist)
 
     csvfile.close()
+    print(result_csv_path)
 
