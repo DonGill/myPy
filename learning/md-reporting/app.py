@@ -6,7 +6,7 @@ import import_md_metadata as md_import
 import md_cleanup_tests as mdct
 import my_Py_kit as mpk
 
-def build_reporting(git_repo_src, git_repo_dest, skip_archiving, branch, date_target=mpk.double_digit_date(datetime.date.today())):
+def build_reporting(git_repo_src, git_repo_dest, skip_archiving, branch, dt=mpk.double_digit_date(datetime.date.today())):
     
     # Archive
     if skip_archiving is False:
@@ -18,15 +18,17 @@ def build_reporting(git_repo_src, git_repo_dest, skip_archiving, branch, date_ta
     
     # Metadata
     print('\n\n### Metadata parse started...')
-    archive_dir = git_repo_dest + '\\' + date_target
-    result_file = archive_dir + '\\md_metadata_' + date_target + '.csv'
+    archive_dir = git_repo_dest + '\\' + dt
+    result_file = archive_dir + '\\md_metadata_' + dt + '.csv'
     md_import.runit(archive_dir, result_file)
-    print('complete')
+    
 
     # Reporting 
     print('\n\n### reporting started...')
-    mdct.build_testing_spreadsheet(archive_dir + '\\md_metadata_' + date_target + '.csv', archive_dir + '\\' + branch + '_md_cleanup_' + date_target + '.csv')
-    print('complete')
+    rpt_src = archive_dir + '\\md_metadata_' + dt + '.csv'
+    rpt_dest = archive_dir + '\\' + branch + '_md_cleanup_' + dt + '.csv'
+    mdct.build_testing_spreadsheet(rpt_src, rpt_dest )
+    
 
 
 def main():
@@ -36,14 +38,14 @@ def main():
     local_git_archive = 'c:\\git-archive'
     skip_archiving_step = False
     branch = ''
-    valid_branches = ['ga-threshold', 'master', 'sc-rtm-branch']
+    valid_branches = ['ga-threshold', 'master', 'sc-rtm-branch', 'essentials-master']
 
     # read the commandline arguments
-    myopts, args = getopt.getopt(sys.argv[1:],"b:a:d:")
+    myopts, args = getopt.getopt(sys.argv[1:],"b:s:d:")
     for option, a in myopts:
         if option == '-b':
             branch = a
-        elif option == '-a':
+        elif option == '-s':
            skip_archiving_step = a
         elif option == '-d':
             date_part = a
@@ -55,6 +57,11 @@ def main():
     # If so, fire the appropriate action
     # if not, raise an error       
     if branch in valid_branches:
+        if branch == 'essentials-master':
+            if skip_archiving_step:
+                build_reporting(local_git_src + "\\WindowsServerDocs-pr\essentialsdocs", local_git_archive + "\\_Essentials Archive\\master", True, branch, date_part)
+            else:
+                build_reporting(local_git_src + "\\WindowsServerDocs-pr\essentialsdocs", local_git_archive + "\\_Essentials Archive\\master", False, branch, date_part)
         if branch == 'ga-threshold':
             if skip_archiving_step:
                 build_reporting(local_git_src + "\\WindowsServerDocs-pr\windowsserverdocs", local_git_archive + "\\_WS16 Archive\\ga-threshold", True, branch, date_part)
