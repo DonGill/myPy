@@ -36,6 +36,8 @@ def _get_description(md):
         if line.__contains__('description: '):
             result = line[13:].strip().replace('\\r', '')
             break
+    if len(result) <= 3: # work around values being captured as " "
+        result = 'blank'
     return result
 
 def _get_manager(md):
@@ -84,44 +86,33 @@ def _get_mstech(md):
 
 def _get_author(md, skip):
     result = 'blank'
-
-    if skip:
-        # get below the ms.author
-        md = md[str(md).find('ms.author:') + 10:]
-
     for line in str(md).split('\\n'):
-        if line.__contains__('author: '):
-            result = line[7:].strip().replace('\\r', '').lower()
-            #print(line, result)
+        # print(line[0:7])
+        if line[0:7] == 'author:':
+            result = line[8:].strip().replace('\\r', '').lower()
             break
-
     return result
-
 
 def _get_msauthor(md, skip):
     result = 'blank'
-    if skip:
-        # get below the author
-        md = md[str(md).find('author:') + 7]
-
     for line in str(md).split('\\n'):
-        if line.__contains__('ms.author: '):
+        if line[0:9] == 'ms.author':
             result = line[10:].strip().replace('\\r', '').lower()
             break
-    return result
 
+    return result
 
 def first_in(md):
     lines = str(md).split('\\n')
     winner = ''
     for line in lines:
-        if line.__contains__('author:'):
-            if line.__contains__('ms.author'):
-                winner = 'ms.author'
-            else:
-                winner = 'author'
-    return winner
-
+        if line[0:9] == 'ms.author:':
+            return 'ms.author'
+            break
+        if line[0:6] == 'author:':
+            return 'author'
+            break
+    
 def parse_md_metadata(md_file, file_path):
     mstopic = _get_mstopic(md_file)
     title = _get_title(md_file)

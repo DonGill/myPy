@@ -42,7 +42,7 @@ def build_reporting(git_repo_src, git_repo_dest, branch):
     print('complete')
 
     # Reporting 
-    print('\n\n### Reporting started...')
+    print('\n\n### reporting started...')
     mdct.build_testing_spreadsheet(ws_archive_dir + '\\md_metadata_' + DATE_PART + '.csv', ws_archive_dir + '\\' + branch + '_md_cleanup_' + DATE_PART + '.csv')
     print('complete')
 
@@ -53,10 +53,10 @@ else:
     DATE_PART = mpk.double_digit_date(datetime.date.today())
 
 # ws16 - master
-# build_reporting(LOCAL_GIT_SRC + "\\WindowsServerDocs-pr\windowsserverdocs", LOCAL_GIT_ARCHIVE + "\\_WS16 Archive\\master", 'master')
+#build_reporting(LOCAL_GIT_SRC + "\\WindowsServerDocs-pr\windowsserverdocs", LOCAL_GIT_ARCHIVE + "\\_WS16 Archive\\master", 'master')
 
 # ws16 - ga-threshold
-# build_reporting(LOCAL_GIT_SRC + "\\WindowsServerDocs-pr\windowsserverdocs", LOCAL_GIT_ARCHIVE + "\\_WS16 Archive\\ga-threshold",'ga_threshold')
+build_reporting(LOCAL_GIT_SRC + "\\WindowsServerDocs-pr\windowsserverdocs", LOCAL_GIT_ARCHIVE + "\\_WS16 Archive\\ga-threshold",'ga_threshold')
 
 # sc16 - ga-threshold
 #build_reporting(LOCAL_GIT_SRC + "\\SystemCenterDocs-pr\\SystemCenterDocs", LOCAL_GIT_ARCHIVE + "\\_SC16 Archive\\sc-rtm-branch", 'sc_rtm_branch')
