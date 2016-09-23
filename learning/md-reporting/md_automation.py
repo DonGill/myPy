@@ -58,5 +58,5 @@ else:
 # ws16 - ga-threshold
 #build_reporting(LOCAL_GIT_SRC + "\\WindowsServerDocs-pr\windowsserverdocs", LOCAL_GIT_ARCHIVE + "\\_WS16 Archive\\ga-threshold",'ga_threshold')
 
-# sc16 - ga-threshold
-build_reporting(LOCAL_GIT_SRC + "\\SystemCenterDocs-pr\\SystemCenterDocs", LOCAL_GIT_ARCHIVE + "\\_SC16 Archive\\sc-rtm-branch", 'sc_rtm_branch')
+# sc16 - sc-rtm-branch
+#build_reporting(LOCAL_GIT_SRC + "\\SystemCenterDocs-pr\\SystemCenterDocs", LOCAL_GIT_ARCHIVE + "\\_SC16 Archive\\sc-rtm-branch", 'sc_rtm_branch')

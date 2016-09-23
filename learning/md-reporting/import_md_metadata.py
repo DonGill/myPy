@@ -143,7 +143,6 @@ def parse_md_metadata(md_file, file_path):
 
 
 def runit(test_directory, csv_result):
-    #test_directory = r'C:\Users\dongill\_WS16 Archive\2016.09.15'
     for root, subdirs, files in os.walk(test_directory):
         for filename in files:
             if filename.endswith(".md"):
