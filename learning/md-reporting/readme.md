@@ -3,21 +3,20 @@ The **md-reporting** app performs two functions:
 1. Archives an existing git repo
 2. Runs a set of reports off of the archived repo
 
-## supported branches
+## Current supported branches
 There are currently four supported branches. They are:
 1. ga-threshold
 2. master
 3. sc-rtm-branch
 4. essentials-master
 
-## Assumptions and Requirements
+## Assumptions and requirements
 1. Python 3.4
 2. GitHub files on local machine:
     * c:\git-src\WindowsServerDocs-pr
     * c:\git-src\SystemCenterDocs-pr
 3. An archive folder located at:
     * c:\git-arch
-
 
 # Parameter usage and examples
 
@@ -32,14 +31,14 @@ There are currently four supported branches. They are:
 
 ## To archive and report current day
 If you wanted to archive and run reports against a particular branch like ga-threshold, you'd:
-1. In your Git client, ensure you are on the ga-threshold branch and pull from origin to ensure
+1. In your Git client, ensure you are in the ga-threshold branch and pull from origin to ensure
 that you have the most up to date files locally. 
 2. After verifying the above, use the following syntax for app.py:
 
 ```Python
 c:\mypy\learning\md-reporting Python app.py -b ga-threshold
 ```
-**Note**: You will find the report spreadsheets in the dated archived in c:\git-arch for the branch and date used.
+**Note**: Upon completion, you can locate the report spreadsheets in the appropriate repo > branch > date hierarchy of the required c:\git-arch folder. Folder and files dates following the following format: *YYYY.MM.DD*, or *2016.09.23*
 
 ## To run reports against a historical archived branch skipping archiving steps
 
