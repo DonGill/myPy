@@ -1,5 +1,6 @@
 # Usage
 The **md-reporting** app performs two functions:
+
 1. Archives an existing git repo
 2. Runs a set of reports off of the archived repo
 
