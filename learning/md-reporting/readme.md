@@ -37,7 +37,7 @@ If you wanted to archive and run reports against a particular branch like ga-thr
 that you have the most up to date files locally. 
 2. After verifying the above, use the following syntax for app.py:
 
-```Python
+```Py
 c:\mypy\learning\md-reporting Python app.py -b ga-threshold
 ```
 **Note**: Upon completion, you can locate the report spreadsheets in the appropriate repo > branch > date hierarchy of the required c:\git-arch folder. Folder and files dates following the following format: *YYYY.MM.DD*, or *2016.09.23*
