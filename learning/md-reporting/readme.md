@@ -6,6 +6,7 @@ The **md-reporting** app performs two functions:
 
 ## Current supported branches
 There are currently four supported branches. They are:
+
 1. ga-threshold
 2. master
 3. sc-rtm-branch
