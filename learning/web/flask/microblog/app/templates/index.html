@@ -1,8 +1,14 @@
+<!-- extend from base layout -->
 {% extends "base.html" %}
+
 {% block content %}
-    <h1>Hi, {{ user.nickname }}!</h1>
+    <h2>Hi, {{ user.nickname }}!</h2>
 
     {% for post in posts %}
-    <div class="entries"><p>{{ post.author.nickname }} says: <b>{{ post.body }}</b></p></div>
+    <div class="entries"><p>{{ post.author }} says: {{ post.title }}</p>
+        {% for tag in post.tags %}
+            <b>{{ tag }} </b>
+        {% endfor %}
+    </div>
     {% endfor %}
 {% endblock %}

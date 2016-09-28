@@ -1,14 +1,14 @@
 <html>
   <head>
     {% if title %}
-    <title>{{ title }} - microblog</title>
+    <title>{{ title }} - mypy</title>
     {% else %}
-    <title>microblog</title>
+    <title>mypy</title>
     {% endif %}
     <link rel="stylesheet" type="text/css" href="../static/css/style.css" />
   </head>
-  <body>
-    <div>Microblog: <a href="/index">Home</a></div>
+  <body style='align:center; border:1em;'>
+    <div class='metanav'>mypy: <a href="/index">home</a></div>
     <hr>
     {% with messages = get_flashed_messages() %}
       {% if messages %}

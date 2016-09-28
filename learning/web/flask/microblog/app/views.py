@@ -8,22 +8,35 @@ from .forms import LoginForm
 def index():
     user = {'nickname': 'Don'} # fake user
     posts = [
-        {
-            'author': {'nickname': 'John'},
-            'body': 'Beautiful day in Portland!'
-        },
-        {
-            'author': {'nickname': 'Susan'},
-            'body': 'The Avengers movie was so cool!'
-        },
-        {
-            'author': {'nickname': 'Don'},
-            'body': '..and fun was had by all!'
-        }
+        {'author': 'Don', 'tags': ['foo', 'bar'], 'title':'test tile', 'body': '<p>this is the body of post 1</p>'},
+        {'author': 'Sue', 'tags': ['x'], 'title':'test tile 2'}
     ]
+    
+    
+    # posts = [
+    #     {
+    #         'author': {'nickname': 'John'},
+    #         'body': 'Beautiful day in Portland!'
+    #     },
+    #     {
+    #         'author': {'nickname': 'Susan'},
+    #         'body': 'The Avengers movie was so cool!'
+    #     },
+    #     {
+    #         'author': {'nickname': 'Don'},
+    #         'body': '..and fun was had by all!'
+    #     }
+    # ]
+
     return render_template('index.html',
-                           user=user,
-                           posts=posts)
+                            title=app.config,
+                            user=user,
+                            posts=posts)
+
+@app.route('/item', methods=['GET', 'POST'])
+def item():
+    post = {'author': 'Don', 'tags': ['foo', 'bar'], 'title':'test title', 'body': 'This is the body of post 1.<br/> This is some more long running text that should build out a better view of how it might look on the page. Super cool, if you think about it. Just type, type, typing away as if I didnt have a care in the world. There is nothing here to see. Just words and more words. So damn fun, huh?'}
+    return render_template('item.html', title='foo', post=post)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
