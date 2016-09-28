@@ -1,23 +1,28 @@
 <html>
   <head>
     {% if title %}
-    <title>{{ title }} - mypy</title>
+    <title>{{ title }} - microblog</title>
     {% else %}
-    <title>mypy</title>
+    <title>microblog</title>
     {% endif %}
-    <link rel="stylesheet" type="text/css" href="../static/css/style.css" />
+     <link rel="stylesheet" type="text/css" href="../static/css/style.css" />
   </head>
-  <body style='align:center; border:1em;'>
-    <div class='metanav'>mypy: <a href="/index">home</a></div>
+  <body>
+    <div>Microblog:
+        <a href="{{ url_for('index') }}">Home</a>
+        {% if g.user.is_authenticated %}
+        | <a href="{{ url_for('logout') }}">Logout</a>
+        {% endif %}
+    </div>
     <hr>
     {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul>
-        {% for message in messages %}
-            <li>{{ message }} </li>
-        {% endfor %}
-        </ul>
-      {% endif %}
+    {% if messages %}
+    <ul>
+    {% for message in messages %}
+        <li>{{ message }} </li>
+    {% endfor %}
+    </ul>
+    {% endif %}
     {% endwith %}
     {% block content %}{% endblock %}
   </body>
