@@ -6,7 +6,7 @@ import re
 
 # BASE_METADATA_CSV = r'C:\GIT_Archive\_WS16 Archive\2016.09.21\ws16_metadata_2016.09.21.csv'
 mylist = []
-md_fieldnames = ['filepath', 'ms.date','ms.prod', 'ms.technology', 'ms.author', 'author', 'manager', 'ms.topic', 'title', 'description', 't-technical-preview', 't-preliminary', 't-file-preview', 't-img-alt-text','t-file-dd']
+md_fieldnames = ['filepath', 'ms.date','ms.prod', 'ms.technology', 'ms.author', 'author', 'manager', 'ms.topic', 'title', 'description', 't-technical-preview', 't-preliminary', 't-file-preview', 't-img-alt-text','t-file-dd', 'ms.assetid']
 
 def count_inst(src_file, string_to_find):
     

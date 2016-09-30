@@ -3,7 +3,7 @@ import csv
 import os
 
 md_list = []
-md_fieldnames = ['filepath', 'ms.date','ms.prod', 'ms.technology', 'ms.author', 'author', 'manager', 'ms.topic', 'title', 'description']
+md_fieldnames = ['filepath', 'ms.date','ms.prod', 'ms.technology', 'ms.author', 'author', 'manager', 'ms.assetid', 'ms.topic', 'title', 'description']
 
 
 def _write_csv(csv_dest):
@@ -19,6 +19,14 @@ def _get_title(md):
     for line in str(md).split('\\n'):
         if line.__contains__('title: '):
             result = line[7:].strip().replace('\\r', '').replace(',', '')
+            break
+    return result
+
+def _get_ms_assetid(md):
+    result = 'blank'
+    for line in str(md).split('\\n'):
+        if line[0:12] == ('ms.assetid: '):
+            result = line[12:].strip().replace('\\r', '').replace(',', '')
             break
     return result
 
@@ -121,6 +129,7 @@ def parse_md_metadata(md_file, file_path):
     msprod = _get_msprod(md_file)
     mstechnology = _get_mstech(md_file)
     msdate = _get_msdate(md_file)
+    msassetid = _get_ms_assetid(md_file)
 
     # lets test which comes first
     if first_in(md_file) == 'ms.author':
@@ -138,6 +147,7 @@ def parse_md_metadata(md_file, file_path):
             'author': author,
             'manager': manager,
             'ms.prod': msprod,
+            'ms.assetid': msassetid,
             'ms.technology': mstechnology,
             'filepath': file_path}
 
