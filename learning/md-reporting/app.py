@@ -27,7 +27,7 @@ def build_reporting(git_repo_src, git_repo_dest, skip_archiving, branch, dt=mpk.
     print('\n\n### reporting started...')
     rpt_src = archive_dir + '\\md_metadata_' + dt + '.csv'
     rpt_dest = archive_dir + '\\' + branch + '_md_cleanup_' + dt + '.csv'
-    mdct.build_testing_spreadsheet(rpt_src, rpt_dest )
+    mdct.build_mylist_from_metadata_spreadsheet(rpt_src, rpt_dest)
     
 
 

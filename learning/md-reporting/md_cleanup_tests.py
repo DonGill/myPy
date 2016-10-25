@@ -6,7 +6,7 @@ import re
 
 # BASE_METADATA_CSV = r'C:\GIT_Archive\_WS16 Archive\2016.09.21\ws16_metadata_2016.09.21.csv'
 mylist = []
-md_fieldnames = ['filepath', 'ms.date','ms.prod', 'ms.technology', 'ms.author', 'author', 'manager', 'ms.topic', 'title', 'description', 't-technical-preview', 't-preliminary', 't-file-preview', 't-img-alt-text','t-file-dd', 'ms.assetid']
+md_fieldnames = ['filepath', 'ms.date','ms.prod', 'ms.technology', 'ms.author', 'author', 'manager', 'ms.topic', 'title', 't-technical-preview', 't-preliminary', 't-file-preview', 't-img-alt-text', 'ms.assetid','t-headache', 't-file-dd', 't-title-len', 'description','t-desc-len']
 
 def count_inst(src_file, string_to_find):
     
@@ -17,7 +17,6 @@ def count_inst(src_file, string_to_find):
         print(err_inst)
         return 1000
         pass
-
 
 def filename_contains_text(filename, text_to_find):
     # filename expects the full path and file
@@ -36,26 +35,37 @@ def missing_img_alt_text(src_file):
     else:
         return False
 
-def build_testing_spreadsheet(metadata_csv_path, result_csv_path):
+def build_mylist_from_metadata_spreadsheet(metadata_csv_path, result_csv_path):
     # open the original spreadsheet, load into list-of-dictionaries
     with open(metadata_csv_path, encoding='Latin-1') as orig_csv:
         reader = csv.DictReader(orig_csv)
         for row in reader:
             mylist.append(row)
     orig_csv.close()
-
+    
     # per file in the spreadsheet, run the following tests and persist back to another csv
     for row in mylist:
         with open(row['filepath'], encoding='Latin-1') as test:
             # run a lot of tests
             md_file_text = test.read().lower()
-            result1 = count_inst(md_file_text, 'technical preview')
-            result2 = count_inst(md_file_text, 'preliminary')
-            result3 = filename_contains_text(row['filepath'], 'preview')
-            result4 = missing_img_alt_text(md_file_text)
-            result5 = filename_contains_text(row['filepath'], '--')
+            result1 = count_inst(md_file_text, 'technical preview') # count instannces of...
+            result2 = count_inst(md_file_text, 'preliminary') # count instances of...
+            result3 = filename_contains_text(row['filepath'], 'preview') # contains...
+            result4 = missing_img_alt_text(md_file_text) # regex missing pattern...
+            result5 = filename_contains_text(row['filepath'], '--') # contains...
+            result6 = count_inst(md_file_text, '<<<<<<< head'.lower()) # count instances of...
+            result7 = len(row['title'])
+            result8 = len(row['description'])
 
-            row.update({'t-technical-preview': result1, 't-preliminary': result2, 't-file-preview': result3, 't-img-alt-text': result4, 't-file-dd': result5})
+            row.update(
+                {'t-technical-preview': result1, 
+                't-preliminary': result2, 
+                't-file-preview': result3, 
+                't-img-alt-text': result4, 
+                't-file-dd': result5, 
+                't-headache': result6, 
+                't-title-len': result7, 
+                't-desc-len': result8})
         test.close()
 
     with open(result_csv_path, 'w', newline='\n') as csvfile:
